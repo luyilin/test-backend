@@ -6937,8 +6937,8 @@ yorkie@^1.0.3:
     normalize-path "^1.0.0"
     strip-indent "^2.0.0"
 
-zerotwo@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/zerotwo/-/zerotwo-0.3.3.tgz#ea3770973aa0e269d6eace37c10559e0a9bac99a"
+zerotwo@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/zerotwo/-/zerotwo-0.3.4.tgz#d06d5b0ff2c892754c4ef48d9abc5152d07a9976"
   dependencies:
     nano-assign "^1.0.0"

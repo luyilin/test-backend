@@ -38,4 +38,11 @@ api.userList = () => {
   ]
 }
 
+api.success = () => {
+  return {
+    code: 3000,
+    status: 'success'
+  }
+}
+
 export default api

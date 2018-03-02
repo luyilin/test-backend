@@ -3,6 +3,5 @@ import Main from './Main.vue'
 
 export default connect({
   data: state(),
-  fetchUsers: mutation(),
-  addUser: mutation()
+  fetchUsers: mutation()
 })(Main)

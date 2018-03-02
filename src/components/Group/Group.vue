@@ -3,14 +3,17 @@
     <ul>
       <h2 class="title">
         <span>{{ department === 'admin' ? '管理员' : department }}</span>
-        <i class="iconfont icon-add" @click="showAdd = !showAdd"></i>
+        <i class="iconfont icon-add" @click="toggleAdd"/>
       </h2>
       <li v-for="i in member" :key="i.email">
         <span>{{ i.name }}</span>
         <span>{{ i.email }}</span>
-        <i class="iconfont icon-shanchu" @click="deleteMember(i)"></i>
+        <i class="iconfont icon-shanchu" @click="deleteMember(i)"/>
       </li>
-      <add-user :showAdd="showAdd" :groupName="department" @toggleAdd="showAdd = !showAdd"/>
+      <add-user :showAdd="showAdd"
+                :groupName="department"
+                @toggleAdd="toggleAdd"
+                :admin="admin"/>
     </ul>
     <v-dialog/>
   </div>
@@ -36,7 +39,9 @@ export default {
       type: Boolean,
       default: false
     },
-    data: {},
+    data: {
+      type: Array
+    },
     deleteUser: {
       type: Function
     }
@@ -75,6 +80,9 @@ export default {
           }
         ]
       })
+    },
+    toggleAdd () {
+      this.showAdd = !this.showAdd
     }
   }
 }

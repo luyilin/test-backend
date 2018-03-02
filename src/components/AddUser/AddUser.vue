@@ -3,7 +3,6 @@
     <input name="name" placeholder="name" :class="{error: nameNeed}" v-model="name"/>
     <input name="email" placeholder="email" :class="{error: emailNeed}" v-model="email"/>
     <input v-if="!groupName" name="group" placeholder="group" :class="{error: groupNeed}" v-model="group"/>
-    <!--<span class="btn cancel" @click="toggleAdd = false">cancel</span>-->
     <span class="btn cancel" @click="cancel">cancel</span>
     <span class="btn submit" @click="add">add</span>
   </li>
@@ -23,6 +22,10 @@ export default {
       type: String,
       default: ''
     },
+    admin: {
+      type: Boolean,
+      default: false
+    },
     data: {
       type: Array
     },
@@ -33,7 +36,6 @@ export default {
 
   data() {
     return {
-//      toggleAdd: this.showAdd,
       name: '',
       email: '',
       group: '',
@@ -41,12 +43,6 @@ export default {
       emailNeed: false,
       groupNeed: false
     }
-  },
-
-  watch: {
-//    showAdd: function () {
-//      this.toggleAdd = !this.toggleAdd
-//    }
   },
 
   methods: {
@@ -57,14 +53,16 @@ export default {
       this.nameNeed = !this.name
       this.emailNeed = !this.email
       this.groupNeed = !this.group
-      if (!this.name || !this.email) return
-      addUser(this.name, this.email, this.admin, this.groupName || this.group).then(() => {
+      let group = this.groupName || this.group
+      if (!this.name || !this.email || !group) return
+      addUser(this.name, this.email, this.admin, group).then(() => {
         this.addUser({
           name: this.name,
           email: this.email,
-          department: this.groupName || this.group
+          admin: this.admin,
+          department: group
         })
-        this.toggleAdd = false
+        this.$emit('toggleAdd')
       })
     }
   }

@@ -1,9 +1,14 @@
 <template>
   <div class="content">
     <p v-if="noAuth">no auth</p>
-    <group v-else v-for="i in departmentList" :key="i" :department="i" :admin="i === 'admin'" :member="memberList(i)"/>
-    <i class="iconfont icon-add" @click="showAdd = !showAdd"></i>
-    <add-user :showAdd="showAdd" @toggleAdd="showAdd = !showAdd"/>
+    <group v-else v-for="i in departmentList" :key="i"
+           :department="i"
+           :admin="i === 'admin'"
+           :member="memberList(i)"/>
+    <i class="iconfont icon-add" @click="toggleAdd"/>
+    <add-user :showAdd="showAdd"
+              @toggleAdd="toggleAdd"
+              :admin="false"/>
   </div>
 </template>
 
@@ -15,7 +20,7 @@ import { userInfo, userList } from '../../api/index'
 export default {
   name: 'Main',
 
-  props: ['data', 'fetchUsers', 'addUser'],
+  props: ['data', 'fetchUsers'],
 
   data() {
     return {
@@ -56,7 +61,7 @@ export default {
         }
       }
       let index = temp.indexOf('admin')
-      if (!index) return temp
+      if (index < 1) return temp
       temp.splice(index, 1)
       temp.unshift('admin')
       return temp
@@ -71,10 +76,11 @@ export default {
   methods: {
     memberList (de) {
       return this.data.filter((i) => {
-        if (i.department === de) {
-          return i
-        }
+        if (i.department === de) return i
       })
+    },
+    toggleAdd () {
+      this.showAdd = !this.showAdd
     }
   }
 }
@@ -84,9 +90,15 @@ export default {
 :root {
   --red: #e43854;
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .content {
   width: 72%;
   margin: 0 auto;
+  padding: 0 10px;
   @media (max-width: 700px) {
     width: 100%
   }
